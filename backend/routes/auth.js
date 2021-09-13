@@ -1,11 +1,16 @@
 //Creating routes for log in 
 
 var express = require('express');
+const User=require('../models/User')
 var router = express.Router();
 
+//creating a new user,post request (/api/auth),does not need authentication
 
-router.get('/', function (req, res) {
-    res.send('Wiki home page');
+router.post('/', function (req, res) {
+    console.log(req.body)
+    const user=new User(req.body)
+    user.save()
+    res.send(req.body);
   })
 
 

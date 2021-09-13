@@ -12,7 +12,12 @@ connectToMongo()//connecting to mongodb
 const app = express()
 const port = 3000
 
+
+
+
 //configuring routes
+
+app.use(express.json())//needed access req.body,without this command we cannot access to req.body
 
 app.use('/api/auth',require('./routes/auth'))
 app.use('/api/notes',require('./routes/notes'))
