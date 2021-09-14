@@ -10,7 +10,7 @@ connectToMongo()//connecting to mongodb
 //bring the server connecting code from express js website hello world section
 
 const app = express()
-const port = 3000
+const port = 5000
 
 
 

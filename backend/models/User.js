@@ -27,8 +27,7 @@ const UserSchema = new Schema({
   const User=mongoose.model('user',UserSchema) //creating model using that schema 
   //mongoose.model(name_of_model,schema_structure)
 
-  User.createIndexes()//preventing duplicate user by assigning indexes to collection by considering email as a primary key as it is announced unique
-
+  
   module.exports= User
    
 
