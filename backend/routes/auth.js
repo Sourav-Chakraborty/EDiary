@@ -6,6 +6,9 @@ const User = require("../models/User");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
+const fetchuser=require('../middleware/fetchuser')
+
+
 
 var router = express.Router();
 
@@ -70,6 +73,9 @@ router.post(
 
 
 
+
+
+
 //authenticate a user,post request (/api/auth/login),does not need authentication
 
 
@@ -123,5 +129,28 @@ router.post(
     }
   }
 );
+
+
+
+
+//Fetching data from log in user and showing him ,using /api/auth/getuser :Need authentication
+
+router.post(
+  "/getuser",
+  fetchuser,//middlleware
+  async (req,res)=>{
+    try {
+      const userId=req.user.id
+      const user=await User.findById(userId).select("-password")//select all except password
+      res.send(user)
+      
+    } catch (error) {
+      
+    }
+  }
+)
+
+
+
 
 module.exports = router;
