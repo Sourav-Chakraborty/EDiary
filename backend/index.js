@@ -24,5 +24,5 @@ app.use('/api/notes',require('./routes/notes'))
 
 
 app.listen(port, () => { //listenning server to given port no.
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`EDiary backend listening at http://localhost:${port}`)
 })
