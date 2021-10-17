@@ -2,6 +2,8 @@
 
 const connectToMongo=require('./db')
 const express = require('express')
+var app = express()
+var cors = require('cors')
 
 
 connectToMongo()//connecting to mongodb
@@ -9,11 +11,11 @@ connectToMongo()//connecting to mongodb
 
 //bring the server connecting code from express js website hello world section
 
-const app = express()
 const port = 5000
 
 
 
+app.use(cors())
 
 //configuring routes
 

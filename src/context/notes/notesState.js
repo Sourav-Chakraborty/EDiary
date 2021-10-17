@@ -1,65 +1,98 @@
-//in this file we will define all the state reguarding to note
-import React,{useState} from "react";
 import NoteContext from "./noteContext";
+import { useState } from "react";
 
-const NoteState=(props)=>{
-   const notesInitial=
-    [
-        {
-          "_id": "6162d2ad62e435b688d059e5",
-          "user": "6162d29362e435b688d059e3",
-          "title": "Updating notes",
-          "description": "Saving the first note",
-          "tag": "general",
-          "date": "2021-10-10T11:46:53.127Z",
-          "__v": 0
-        },
-        {
-          "_id": "6162d31a62e435b688d059e8",
-          "user": "6162d29362e435b688d059e3",
-          "title": "FirstNote",
-          "description": "Saving the first note",
-          "tag": "general",
-          "date": "2021-10-10T11:48:42.978Z",
-          "__v": 0
-        },
-        {
-          "_id": "6162d35799521cb6fc2d4934",
-          "user": "6162d29362e435b688d059e3",
-          "title": "FirstNote",
-          "description": "Saving the first note",
-          "tag": "general",
-          "date": "2021-10-10T11:49:43.215Z",
-          "__v": 0
-        },
-        {
-          "_id": "61659b724b8f32ef0138a7fb",
-          "user": "6162d29362e435b688d059e3",
-          "title": "FirstNote",
-          "description": "Saving the first note",
-          "tag": "general",
-          "date": "2021-10-12T14:28:02.796Z",
-          "__v": 0
-        },
-        {
-          "_id": "61659b724b8f32ef0138a7fe",
-          "user": "6162d29362e435b688d059e3",
-          "title": "Updating notes",
-          "description": "Saving the first note",
-          "tag": "general",
-          "date": "2021-10-12T14:28:02.917Z",
-          "__v": 0
-        }
-      ]
-      const [notes, setNotes] = useState(notesInitial)
-    
-    
-    return(
-        <NoteContext.Provider value={{notes,setNotes}}>
-            {props.children}
-        </NoteContext.Provider>
-    )
-}
- 
+const NoteState = (props) => {
+  const host = "http://localhost:5000";
+   const notesInitial =[]
+   const [notes, setNotes] = useState(notesInitial);
 
-export default NoteState
+  const getAllNotes=async ()=>{
+    const respon = await fetch(`${host}/api/notes/getallnotes`, {
+      method: 'GET',
+
+      headers: {
+        
+        "auth-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE2MmQyOTM2MmU0MzViNjg4ZDA1OWUzIn0sImlhdCI6MTYzMzg2NjM4N30.3UZ-kQv7HjVEflydpTgJwjOyjHdhPKboP1EWuA3w1zQ",
+        "Content-Type": "application/json"
+          
+      }
+
+    });
+    const json=await respon.json()
+  
+    setNotes(json)
+  }
+
+
+  // Add a Note
+  const addNote = async (title, description, tag) => {
+    const response = await fetch(`$(host)/api/notes/addnote`, {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE2MmQyOTM2MmU0MzViNjg4ZDA1OWUzIn0sImlhdCI6MTYzMzg2NjM4N30.3UZ-kQv7HjVEflydpTgJwjOyjHdhPKboP1EWuA3w1zQ",
+      },
+
+      body: JSON.stringify({title, description, tag}), 
+    });
+
+    
+    const note = {
+      _id: "61322f119553781a8ca8d0e08",
+      user: "6131dc5e3e4037cd4734a0664",
+      title: title,
+      description: description,
+      tag: tag,
+      date: "2021-09-03T14:20:09.668Z",
+      __v: 0,
+    };
+    const newNote=notes.concat(note)
+    setNotes(newNote);
+    
+  };
+
+  // Delete a Note
+  const deleteNote = (id) => {
+    console.log("Deleting the note ", id);
+    const newNotes = notes.filter((note) => note._id !== id);
+    
+    setNotes(newNotes);
+  };
+
+  // Edit a Note
+  const editNote = async (id, title, description, tag) => {
+    // api call
+
+    const response = await fetch(`${host}/api/notes/updatenote/$(id)`, {
+      method: "PUT",
+
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE2MmQyOTM2MmU0MzViNjg4ZDA1OWUzIn0sImlhdCI6MTYzMzg2NjM4N30.3UZ-kQv7HjVEflydpTgJwjOyjHdhPKboP1EWuA3w1zQ",
+      },
+
+      body: JSON.stringify({title,description,tag}), // body data type must match "Content-Type" header
+    });
+
+    // logic to edit
+    for (var i = 0; i < notes.length; i++) {
+      if (notes[i]._id === id) {
+        notes[i].title = title;
+        notes[i].description = description;
+        notes[i].tag = tag;
+      }
+    }
+  };
+
+  return (
+    <NoteContext.Provider value={{notes,getAllNotes,addNote, deleteNote, editNote }}>
+      {props.children}
+    </NoteContext.Provider>
+  );
+};
+
+export default NoteState;
