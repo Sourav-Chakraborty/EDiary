@@ -1,4 +1,4 @@
-import React, {useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
 import AddNotes from "./AddNotes.js";
 import NoteItem from "./NoteItem.js";
 import noteContext from "../context/notes/noteContext.js";
@@ -6,18 +6,32 @@ import noteContext from "../context/notes/noteContext.js";
 export default function Notes() {
   const ref = useRef(null);
   const context = useContext(noteContext);
-  const { notes,editNote} = context;
-  const [note, setNote] = useState({id:"",title: "", description: "", tag: "default"})
+  const { notes, editNote } = context;
+  const [note, setNote] = useState({
+    id: "",
+    title: "",
+    description: "",
+    tag: "default",
+  });
 
   const updateNote = (note) => {
-    setNote({id:note._id,title: note.title, description: note.description, tag: note.tag})
+    setNote({
+      id: note._id,
+      title: note.title,
+      description: note.description,
+      tag: note.tag,
+    });
     ref.current.click();
-
   };
   const handleClick = (e) => {
     e.preventDefault();
-    editNote(note.id,note.title,note.description,note.tag)
-    document.getElementById("X").click()
+    if (note.title.length === 0)
+      alert("Make sure title is atleast one charecter");
+    else if (note.description.length < 5)
+      alert("Make sure title is atleast 5 charecter");
+    else 
+      editNote(note.id, note.title, note.description, note.tag);
+    document.getElementById("X").click();
   };
 
   const onChange = (e) => {
@@ -31,7 +45,7 @@ export default function Notes() {
         ref={ref}
         data-toggle="modal"
         data-target="#exampleModal"
-        style={{border:"none"}}
+        style={{ border: "none" }}
       ></button>
 
       <div
@@ -82,7 +96,6 @@ export default function Notes() {
                     type="text"
                     className="form-control"
                     value={note.description}
-
                     id="description"
                     name="description"
                     onChange={onChange}
@@ -96,25 +109,26 @@ export default function Notes() {
                     type="text"
                     className="form-control"
                     value={note.tag}
-
                     id="tag"
                     name="tag"
                     onChange={onChange}
                   />
                 </div>
-              
               </form>
             </div>
             <div className="modal-footer">
               <button
-
                 type="button"
                 className="btn btn-secondary"
                 data-dismiss="modal"
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary" onClick={handleClick}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleClick}
+              >
                 Update Note
               </button>
             </div>
@@ -124,6 +138,7 @@ export default function Notes() {
 
       <h1>All Your Notes</h1>
       <div className="row ">
+        {notes.length === 0 && <h1 className="text-center">No Note to show</h1>}
         {notes.map((note) => {
           return (
             <NoteItem updateNote={updateNote} note={note} key={note._id} />
