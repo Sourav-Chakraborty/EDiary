@@ -42,10 +42,17 @@ export default function Nav() {
               </Link>
             </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-          <Link class="btn btn-outline-warning mx-2" to="/signup" role="button">Sign up</Link>
-          <Link class="btn btn-outline-warning" to="/signin" role="button">Sign in</Link>
-
+          <form className="form-inline my-2 my-lg-0">
+            <Link
+              className="btn btn-outline-warning mx-2"
+              to="/signup"
+              role="button"
+            >
+              Sign up
+            </Link>
+            <Link className="btn btn-outline-warning mx-2" to="/signin" role="button">
+              Sign in
+            </Link>
           </form>
         </div>
       </nav>

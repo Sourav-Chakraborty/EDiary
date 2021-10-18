@@ -108,7 +108,7 @@ router.post(
       if(passwordCompare===false){
         return res
           .status(500)
-          .json({ msg: "please put valid credentials" });
+          .json({success:"false", msg: "please put valid credentials" });
       }
      
       /* will use jwt web token to identify all authentic user ,for jwt we need id of the user & a seckret sign*/
@@ -122,7 +122,7 @@ router.post(
 
       const authToken = jwt.sign(data, JWTSecret);//jwtSecret is our own signature,it will help us to identify user 
 
-      res.status(200).json({ authToken });
+      res.status(200).json({success:"true", authToken });
     } catch (err) {
       console.error(err);
       res.status(500).send({msg:"some internal error occure"})

@@ -4,6 +4,8 @@ import Home from "./component/Home";
 import About from "./component/About";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NoteState from "./context/notes/notesState";
+import Signin from "./component/Signin";
+import Signup from "./component/Signup";
 
 function App() {
   return (
@@ -18,6 +20,13 @@ function App() {
                 <About />
               </Route>
 
+              
+              <Route path="/signin">
+                <Signin />
+              </Route>
+              <Route path="/signup">
+                <Signup />
+              </Route>
               <Route path="/">
                 <Home />
               </Route>
