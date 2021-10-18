@@ -4,7 +4,7 @@ export default function NoteItem(props) {
   const context = useContext(noteContext);
   const {deleteNote} = context;
 
-  const { note } = props;
+  const { note,updateNote } = props;
   return (
     <div className="col-3 my-3">
       <div className="card">
@@ -16,7 +16,7 @@ export default function NoteItem(props) {
           </p>
           <h6>{note.date}</h6>
           <i className="fas fa-trash-alt mx-3" onClick={()=> deleteNote(note._id)}>Delete</i>
-          <i className="fas fa-edit">Edit</i>
+          <i className="fas fa-edit mx-3" onClick={()=> updateNote(note)}>Edit</i>
         </div>
       </div>
     </div>
