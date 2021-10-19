@@ -6,7 +6,7 @@ export default function Nav() {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
         <Link className="navbar-brand" to="/">
           EDiary
         </Link>

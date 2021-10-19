@@ -1,9 +1,10 @@
 import React,{useState} from "react";
 import { useHistory } from "react-router-dom";
 import "./signin.css"
-export default function Signin() {
+export default function Signin(props) {
     const [login, setlogin] = useState({email:"",password:""})
 	let history=useHistory()
+	const setalert=props.setalert
     const onsubmitform=async (e)=>{
         e.preventDefault()
         const response = await fetch(`http://localhost:5000/api/auth/login`, {
@@ -21,9 +22,19 @@ export default function Signin() {
 		  if(json.success==="true"){  
 			  localStorage.setItem("token",json.authtoken)
 		  	  history.push("/")
+				setalert({type:"success",msg:"Congrats sign in sucessful"})
+				setTimeout(() => {
+				setalert({type:null,msg:""})
+				  
+				}, 4000);
 		  }
-		  else
-		  	alert("Log in failed")
+		  else{  
+			setalert({type:"danger",msg:"sign in failed"})
+			setTimeout(() => {
+			setalert({type:null,msg:""})
+			  
+			}, 4000);
+		  }
 
           
     }

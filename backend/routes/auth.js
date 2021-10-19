@@ -31,7 +31,7 @@ router.post(
   async function (req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array(),success:"false" });
     }
     try {
       let user = await User.findOne({ email: req.body.email }); //searching user with same email
@@ -39,7 +39,7 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ msg: "User already exists with same email" });
+          .json({ msg: "User already exists with same email" ,success:"false"});
       }
 
       const salt = await bcrypt.genSaltSync(10); //generating salt
@@ -63,10 +63,10 @@ router.post(
 
       const authToken = jwt.sign(data, JWTSecret);//jwtSecret is our own signature,it will help us to identify user 
 
-      res.json({ authToken });
+      res.json({ authToken,success:"true" });
     } catch (err) {
       console.error(err);
-      res.status(500).send({msg:"some internal error occure"})
+      res.status(500).send({msg:"some internal error occure",success:"false"})
     }
   }
 );

@@ -1,6 +1,7 @@
 import React from 'react'
 import Notes from './Notes'
-export default function Home() {
+export default function Home(props) {
+    const setalert=props.setalert
    
     return (
         <div>
@@ -11,7 +12,7 @@ export default function Home() {
           
 
             
-            <Notes/>
+            <Notes setalert={setalert}/>
           
         </div>
     )

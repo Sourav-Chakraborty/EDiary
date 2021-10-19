@@ -1,7 +1,8 @@
 import React, {useContext, useState,useEffect} from 'react'
 import noteContext from "../context/notes/noteContext"
 
-const AddNote = () => {
+const AddNote = (props) => {
+    const setalert=props.setalert
     const context = useContext(noteContext);
     const {addNote,getAllNotes} = context;
   
@@ -19,6 +20,11 @@ const AddNote = () => {
             alert("Make sure title is atleast 5 charecter")
         else{  
             addNote(note.title, note.description, note.tag);
+            setalert({type:"success",msg:"Congrats note added"})
+            setTimeout(() => {
+            setalert({type:null,msg:""})
+              
+            }, 4000);
             setNote({title: "", description: "", tag: "default"})
 
         }

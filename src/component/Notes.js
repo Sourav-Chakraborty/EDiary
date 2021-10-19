@@ -3,7 +3,8 @@ import AddNotes from "./AddNotes.js";
 import NoteItem from "./NoteItem.js";
 import noteContext from "../context/notes/noteContext.js";
 
-export default function Notes() {
+export default function Notes(props) {
+  const setalert=props.setalert
   const ref = useRef(null);
   const context = useContext(noteContext);
   const { notes, editNote } = context;
@@ -29,8 +30,14 @@ export default function Notes() {
       alert("Make sure title is atleast one charecter");
     else if (note.description.length < 5)
       alert("Make sure title is atleast 5 charecter");
-    else 
+    else {
       editNote(note.id, note.title, note.description, note.tag);
+      setalert({type:"success",msg:"Congrats edit sucessful"})
+      setTimeout(() => {
+      setalert({type:null,msg:""})
+        
+      }, 4000);
+    }
     document.getElementById("X").click();
   };
 
@@ -39,7 +46,7 @@ export default function Notes() {
   };
   return (
     <div>
-      <AddNotes />
+      <AddNotes setalert={setalert} />
 
       <button
         ref={ref}
@@ -141,7 +148,7 @@ export default function Notes() {
         {notes.length === 0 && <h1 className="text-center">No Note to show</h1>}
         {notes.map((note) => {
           return (
-            <NoteItem updateNote={updateNote} note={note} key={note._id} />
+            <NoteItem setalert={setalert} updateNote={updateNote} note={note} key={note._id} />
           );
         })}
       </div>
