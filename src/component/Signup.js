@@ -31,7 +31,7 @@ export default function Signup(props) {
     const json = await response.json();
     console.log(json);
     if (json.success === "true") {
-      localStorage.setItem("token", json.authtoken);
+      localStorage.setItem("token", json.authToken);
       history.push("/");
       setalert({type:"success",msg:"Congrats sign up sucessful"})
       setTimeout(() => {

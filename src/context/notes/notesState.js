@@ -7,14 +7,14 @@ const NoteState = (props) => {
    const [notes, setNotes] = useState(notesInitial);
 
   const getAllNotes=async ()=>{
+    console.log('token in localstroge',localStorage.getItem('token'))
     const respon = await fetch(`${host}/api/notes/getallnotes`, {
       method: 'GET',
 
       headers: {
         
         "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE2MmQyOTM2MmU0MzViNjg4ZDA1OWUzIn0sImlhdCI6MTYzMzg2NjM4N30.3UZ-kQv7HjVEflydpTgJwjOyjHdhPKboP1EWuA3w1zQ",
-        "Content-Type": "application/json"
+        localStorage.getItem('token')
           
       }
 
@@ -33,7 +33,7 @@ const NoteState = (props) => {
       headers: {
         "Content-Type": "application/json",
         "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE2MmQyOTM2MmU0MzViNjg4ZDA1OWUzIn0sImlhdCI6MTYzMzg2NjM4N30.3UZ-kQv7HjVEflydpTgJwjOyjHdhPKboP1EWuA3w1zQ",
+        localStorage.getItem('token')
       },
 
       body: JSON.stringify({title, description, tag}), 
@@ -57,7 +57,7 @@ const NoteState = (props) => {
       headers: {
         "Content-Type": "application/json",
         "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE2MmQyOTM2MmU0MzViNjg4ZDA1OWUzIn0sImlhdCI6MTYzMzg2NjM4N30.3UZ-kQv7HjVEflydpTgJwjOyjHdhPKboP1EWuA3w1zQ",
+        localStorage.getItem('token')
       },
 
     });
@@ -78,7 +78,7 @@ const NoteState = (props) => {
       headers: {
         "Content-Type": "application/json",
         "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE2MmQyOTM2MmU0MzViNjg4ZDA1OWUzIn0sImlhdCI6MTYzMzg2NjM4N30.3UZ-kQv7HjVEflydpTgJwjOyjHdhPKboP1EWuA3w1zQ",
+        localStorage.getItem('token')
       },
 
       body: JSON.stringify({title,description,tag}), 
