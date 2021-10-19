@@ -7,14 +7,13 @@ const NoteState = (props) => {
    const [notes, setNotes] = useState(notesInitial);
 
   const getAllNotes=async ()=>{
-    console.log('token in localstroge',localStorage.getItem('token'))
     const respon = await fetch(`${host}/api/notes/getallnotes`, {
       method: 'GET',
 
       headers: {
         
         "auth-token":
-        localStorage.getItem('token')
+          localStorage.getItem("token")
           
       }
 
@@ -22,6 +21,7 @@ const NoteState = (props) => {
     const json=await respon.json()
   
     setNotes(json)
+    console.log(notes)
   }
 
 
@@ -33,7 +33,7 @@ const NoteState = (props) => {
       headers: {
         "Content-Type": "application/json",
         "auth-token":
-        localStorage.getItem('token')
+        localStorage.getItem("token")
       },
 
       body: JSON.stringify({title, description, tag}), 
@@ -57,7 +57,7 @@ const NoteState = (props) => {
       headers: {
         "Content-Type": "application/json",
         "auth-token":
-        localStorage.getItem('token')
+        localStorage.getItem("token")
       },
 
     });
@@ -78,12 +78,12 @@ const NoteState = (props) => {
       headers: {
         "Content-Type": "application/json",
         "auth-token":
-        localStorage.getItem('token')
+        localStorage.getItem("token")
       },
 
       body: JSON.stringify({title,description,tag}), 
     });
-    const json=await response.json()
+    await response.json()
     getAllNotes()
    
   };

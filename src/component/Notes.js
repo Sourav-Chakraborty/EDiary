@@ -1,19 +1,28 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
+import { useHistory } from "react-router-dom";
+
 import AddNotes from "./AddNotes.js";
 import NoteItem from "./NoteItem.js";
 import noteContext from "../context/notes/noteContext.js";
 
 export default function Notes(props) {
-  const setalert=props.setalert
+  const history = useHistory();
+
+  const setalert = props.setalert;
   const ref = useRef(null);
   const context = useContext(noteContext);
-  const { notes, editNote } = context;
+  const { notes, editNote, getAllNotes } = context;
   const [note, setNote] = useState({
     id: "",
     title: "",
     description: "",
     tag: "default",
   });
+  useEffect(() => {
+    if (localStorage.getItem("token")) getAllNotes();
+    else history.push("/signin");
+    // eslint-disable-next-line
+  }, []);
 
   const updateNote = (note) => {
     setNote({
@@ -32,10 +41,9 @@ export default function Notes(props) {
       alert("Make sure title is atleast 5 charecter");
     else {
       editNote(note.id, note.title, note.description, note.tag);
-      setalert({type:"success",msg:"Congrats edit sucessful"})
+      setalert({ type: "success", msg: "Congrats edit sucessful" });
       setTimeout(() => {
-      setalert({type:null,msg:""})
-        
+        setalert({ type: null, msg: "" });
       }, 4000);
     }
     document.getElementById("X").click();
@@ -148,7 +156,12 @@ export default function Notes(props) {
         {notes.length === 0 && <h1 className="text-center">No Note to show</h1>}
         {notes.map((note) => {
           return (
-            <NoteItem setalert={setalert} updateNote={updateNote} note={note} key={note._id} />
+            <NoteItem
+              setalert={setalert}
+              updateNote={updateNote}
+              note={note}
+              key={note._id}
+            />
           );
         })}
       </div>

@@ -1,15 +1,10 @@
-import React, {useContext, useState,useEffect} from 'react'
+import React, {useContext, useState} from 'react'
 import noteContext from "../context/notes/noteContext"
-
 const AddNote = (props) => {
     const setalert=props.setalert
     const context = useContext(noteContext);
-    const {addNote,getAllNotes} = context;
+    const {addNote} = context;
   
-    useEffect(() => {
-        getAllNotes()
-      
-    }, [])
     const [note, setNote] = useState({title: "", description: "", tag: "default"})
 
     const handleClick = (e)=>{

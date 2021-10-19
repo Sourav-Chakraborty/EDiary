@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./signin.css"
 export default function Signin(props) {
     const [login, setlogin] = useState({email:"",password:""})
@@ -71,7 +71,7 @@ export default function Signin(props) {
 						</form>
 					</div>
 					<div className="row">
-						<p>Don't have an account? <a href="#">Register Here</a></p>
+						<p>Don't have an account? <Link to="/signup">Register Here</Link></p>
 					</div>
 				</div>
 			</div>

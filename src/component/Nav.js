@@ -1,9 +1,14 @@
 import React from "react";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation,useHistory } from "react-router-dom";
 export default function Nav() {
+  const history=useHistory()
   const location = useLocation(); //getting the location path
-
+  const handlelogout=()=>{
+    console.log("Logging out")
+    localStorage.removeItem("token")
+    history.push("/signin")
+  }
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
@@ -42,7 +47,7 @@ export default function Nav() {
               </Link>
             </li>
           </ul>
-          <form className="form-inline my-2 my-lg-0">
+         {!localStorage.getItem('token')?  <form className="form-inline my-2 my-lg-0">
             <Link
               className="btn btn-outline-warning mx-2"
               to="/signup"
@@ -53,7 +58,10 @@ export default function Nav() {
             <Link className="btn btn-outline-warning mx-2" to="/signin" role="button">
               Sign in
             </Link>
-          </form>
+          </form>: 
+          <button onClick={handlelogout} type="button" className="btn btn-outline-warning mx-2">Sign out</button>
+
+          }
         </div>
       </nav>
     </div>
