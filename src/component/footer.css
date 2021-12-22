@@ -1,0 +1,21 @@
+.footer{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgb(31, 29, 29);
+    height: 163px;
+    padding: 15px;
+}
+img.photo {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+}
+.mobile{
+    display: flex;
+    flex-wrap: wrap;
+}
+.textColor{
+    color:white;
+    padding: 9px;
+    font-size: 1.2rem;
+}

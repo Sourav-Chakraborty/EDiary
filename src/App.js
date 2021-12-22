@@ -9,6 +9,7 @@ import NoteState from "./context/notes/notesState";
 import Signin from "./component/Signin";
 import Signup from "./component/Signup";
 import Alert from "./component/Alert";
+import Footer from './component/Footer';
 
 function App() {
   const [alert, setalert] = useState({type:"",msg:""})
@@ -37,6 +38,7 @@ function App() {
               </Route>
             </Switch>
           </div>
+          <Footer/>
         </Router>
       </NoteState>
     </div>
